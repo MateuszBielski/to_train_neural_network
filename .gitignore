@@ -1,3 +1,6 @@
 *.xls
 *.png
+*.dat
+*.npy
+*.ipynb
 __pycache__/

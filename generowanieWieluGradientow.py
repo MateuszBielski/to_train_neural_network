@@ -46,8 +46,20 @@ def CreateLettersOnGradients(gradients):
     angles = np.random.randint(low = -80, high = 80,size=(num_im))
     return np.array([GradientWithLetter(gradients[i],heights[i],letters[i],angles[i]) for i in range(num_im)])
     
-if __name__ == "__main__":
-    num_imx,num_imy = 5,3
+def SaveGradients(gradients,fileName):
+    gradientsFile = open(fileName,'wb')
+    gradientsFile.write(gradients.tobytes())
+    gradientsFile.close()
+    return None
+def OpenGradients(fileName):
+    gradientsFile = open(fileName,'rb')
+    rawData = gradientsFile.read()
+    gradientsFile.close()
+    return rawData.frombuffer
+    
+def showGeneratedImages(x,y):
+    num_imx,num_imy = x,y
+    num_im = num_imx * num_imy
     grayGradients = CreateGrayGradientsAsNdArray((num_im,40,40))
     gradientsWithLetters = CreateLettersOnGradients(grayGradients)
     plt.figure(figsize=(20,10))
@@ -58,3 +70,36 @@ if __name__ == "__main__":
         plt.grid(False)
         plt.imshow(gradientsWithLetters[i],cmap=plt.cm.binary)
     plt.show()
+def SaveExampleImages():
+    grayGradients = CreateGrayGradientsAsNdArray((90,40,40))
+    gradientsWithLetters = CreateLettersOnGradients(grayGradients)
+    np.save('gradLett10x9',gradientsWithLetters)
+def SaveGradients(num,size):
+    print('generowanie danych...')
+    grayGradients = CreateGrayGradientsAsNdArray((num,size,size))
+    gradientsWithLetters = CreateLettersOnGradients(grayGradients)
+    print('dane wygenerowane')
+    nameGray = 'gray_'+str(num)+'_'+str(size)+'x'+str(size)
+    nameLetter = 'letters_'+str(num)+'_'+str(size)+'x'+str(size)
+    np.save(nameGray,grayGradients)
+    np.save(nameLetter,gradientsWithLetters)
+    print('dane zapisane')
+    
+def showSavedImages(fileName):
+    images = np.load(fileName)
+    num_imx,num_imy = 10,9
+    num_im = num_imx * num_imy
+    plt.figure(figsize=(20,10))
+    for i in range(num_imx*num_imy):
+        plt.subplot(num_imy,num_imx,i+1)
+        plt.xticks([])
+        plt.yticks([])
+        plt.grid(False)
+        plt.imshow(images[i],cmap=plt.cm.binary)
+    plt.show()
+    
+if __name__ == "__main__":
+    #~ showGeneratedImages(10,9)
+    #~ showSavedImages('gradLett10x9.npy')
+    #~ SaveExampleImages()
+    SaveGradients(10000,28)
