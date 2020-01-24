@@ -35,7 +35,14 @@ class GradientCreate(unittest.TestCase):#
         gradient = gd.CreateGrayGradient(200,99)
         gradientWithLetter = gd.GradientWithLetter(gradient,120,'G',15)
         self.assertEqual(1,gradientWithLetter[72,100])
-    
+    def testCreateCircleOnGradient(self):
+        gradient = gd.CreateGrayGradient(200,163)
+        gradientC = gd.CreateCircleOn(gradient)
+        self.assertEqual(0,gradientC[25,34])
+    def testCreateCircleWithRadius(self):
+        gradient = gd.CreateGrayGradient(200,23)
+        gradientC = gd.CreateCircleOn(gradient,0.7)
+        self.assertEqual(0,gradientC[80,33])
 class ManyGradientsCreate(unittest.TestCase):#
     def testCreateGrayGradient(self):
         angles = [3,78,94,175,192,266,291,349,90]
@@ -48,6 +55,10 @@ class ManyGradientsCreate(unittest.TestCase):#
         gradients = gwg.CreateGrayGradientsAsNdArray((10,50,50))
         gradientsWithLetters = gwg.CreateLettersOnGradients(gradients)
         self.assertEqual((10,50,50),gradientsWithLetters.shape)
+    def testShapeCreateRandomCirclesOnGradients(self):
+        gradients = gwg.CreateGrayGradientsAsNdArray((10,40,40))
+        gradientsWithCircle = gwg.CreateRandomCirclesOn(gradients)
+        self.assertEqual((10,40,40),gradientsWithCircle.shape)
 
 #~ poniższe okazało się niepotrzebne, bo jest funkcja np.save
 class SaveAndOpenGeneratedGradients(unittest.TestCase):

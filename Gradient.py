@@ -72,6 +72,24 @@ def CreateGrayGradient(edgeLenght,angle,usingImageNew = True):
         print('error in for loop with angle ',angle,Xrotated,Yrotated)
     return pixRotatedGradient
     
+def CreateCircleOn(background,r = 1.0):
+    mode = 'L'
+    if len(background) == 3:
+        if background[2] == 4:
+            mode = 'RGBA'
+        if background[2] == 3:
+            mode = 'RGB'
+    
+    im = Image.fromarray(background,mode)
+    if (r <= 0):
+        return np.array(im)
+    if (r > 1.0):
+        r = 1.0
+    a,b = im.size
+    dx,dy = [d*(1-r)/2 for d in [a,b]]
+    x1,y1,x2,y2 = dx,dy,a-dx,b-dy
+    ImageDraw.Draw(im).ellipse((x1,y1,x2,y2))
+    return np.array(im)
         
 def GradientWithLetter(pixArray,h,Letter,angle):
     mode = 'L'
@@ -104,13 +122,17 @@ def GradientWithLetter(pixArray,h,Letter,angle):
 
 
 if __name__ == "__main__":
-    grayGradient = CreateGrayGradient(200,163)
-    gradientWithLetter = GradientWithLetter(grayGradient,120,'G',-35)
+    grayGradient = CreateGrayGradient(200,23)
+    #~ gradientWithLetter = GradientWithLetter(grayGradient,120,'G',-35)
     #~ colors = gradientWithLetter[:,100]
     #~ print(colors)
-    gradientWithLetter = Image.fromarray(gradientWithLetter,'L')
-    gradientWithLetter.show()
+    #~ gradientWithLetter = Image.fromarray(gradientWithLetter,'L')
+    #~ gradientWithLetter.show()
     #~ point = (10,0)
     #~ pointRotated = '\n'.join([' '.join(['%.3f'%(c) for c in RotatePointXY(point,CosAndSinFromDegrees(a))]) for a in range(0,270,5)])
     #~ print(pointRotated)
+    gradientC = CreateCircleOn(grayGradient,0.7)
+    print(gradientC[80,33])
+    gradientC = Image.fromarray(gradientC,'L')
+    gradientC.show()
     

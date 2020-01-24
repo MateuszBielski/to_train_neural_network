@@ -1,5 +1,5 @@
 import numpy as np
-from Gradient import GradientWithLetter,CreateGrayGradient
+from Gradient import GradientWithLetter,CreateGrayGradient,CreateCircleOn
 import matplotlib.pyplot as plt
     
 num_im = 25
@@ -46,6 +46,13 @@ def CreateLettersOnGradients(gradients):
     angles = np.random.randint(low = -80, high = 80,size=(num_im))
     return np.array([GradientWithLetter(gradients[i],heights[i],letters[i],angles[i]) for i in range(num_im)])
     
+def CreateRandomCirclesOn(gradients):
+    num_im = gradients.shape[0]
+    edgeLenght = gradients.shape[1]
+    r = np.random.randint(low = 20, high = 100, size = (num_im))/100
+    
+    return np.array([CreateCircleOn(gradients[i],r[i]) for i in range(num_im)])
+    
 def SaveGradients(gradients,fileName):
     gradientsFile = open(fileName,'wb')
     gradientsFile.write(gradients.tobytes())
@@ -74,7 +81,7 @@ def SaveExampleImages():
     grayGradients = CreateGrayGradientsAsNdArray((90,40,40))
     gradientsWithLetters = CreateLettersOnGradients(grayGradients)
     np.save('gradLett10x9',gradientsWithLetters)
-def SaveGradients(num,size):
+def SaveGradientsWithLetters(num,size):
     print('generowanie danych...')
     grayGradients = CreateGrayGradientsAsNdArray((num,size,size))
     gradientsWithLetters = CreateLettersOnGradients(grayGradients)
@@ -84,7 +91,16 @@ def SaveGradients(num,size):
     np.save(nameGray,grayGradients)
     np.save(nameLetter,gradientsWithLetters)
     print('dane zapisane')
-    
+def SaveGradientsCircles(num,size)
+    #~ print('generowanie danych...')
+    #~ grayGradients = CreateGrayGradientsAsNdArray((num,size,size))
+    #~ gradientsWithLetters = CreateLettersOnGradients(grayGradients)
+    #~ print('dane wygenerowane')
+    #~ nameGray = 'gray_'+str(num)+'_'+str(size)+'x'+str(size)
+    #~ nameLetter = 'letters_'+str(num)+'_'+str(size)+'x'+str(size)
+    #~ np.save(nameGray,grayGradients)
+    #~ np.save(nameLetter,gradientsWithLetters)
+    #~ print('dane zapisane')
 def showSavedImages(fileName):
     images = np.load(fileName)
     num_imx,num_imy = 10,9
