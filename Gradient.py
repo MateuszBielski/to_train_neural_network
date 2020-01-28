@@ -120,6 +120,34 @@ def GradientWithLetter(pixArray,h,Letter,angle):
     #~ return im
     return np.array(im)
 
+def FillNdArraysBy(arr,var):
+    shp = arr.shape
+    return np.array([var]*arr.size).reshape(shp)
+def FillNdArraysBy135(arr):
+    shp = arr.shape
+    return np.array([135]*arr.size).reshape(shp)
+
+def FillNdArrayElementInStep(arr,var,step):
+    shp = arr.shape
+    arrRes = arr.reshape(arr.size,)
+    arrRes[::step] = var
+    arrRes = arrRes.reshape(shp)
+    return arr
+def FillNdArraysElementBy124InStep6(arr):
+    shp = arr.shape
+    arrRes = arr.reshape(arr.size,)
+    arrRes[::6] = 124
+    arrRes = arrRes.reshape(shp)
+    return arr
+def CalcRatio(ratio,numTotal):
+    rat_x,rat_y = ratio
+    rat_xy = rat_x*rat_y
+    c = (numTotal/rat_xy)**(0.5)
+    y = math.ceil(rat_y*c)
+    x = math.floor(rat_x*c)
+    #~ x,y = rat_x*c,rat_y*c
+    return (x,y)
+    
 
 if __name__ == "__main__":
     grayGradient = CreateGrayGradient(200,23)

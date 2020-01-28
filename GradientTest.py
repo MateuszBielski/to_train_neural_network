@@ -24,9 +24,35 @@ class SimpleFunctions(unittest.TestCase):#
         self.assertEqual(str(1.15846),'%.5f'%(gd.ExtendSqareEdgeByRotate(squareEdge,gd.CosAndSinFromDegrees(angle))))
         angle = 175
         self.assertEqual(str(1.08335),'%.5f'%(gd.ExtendSqareEdgeByRotate(squareEdge,gd.CosAndSinFromDegrees(angle))))
-    
+    def testFillNdArraysBy(self):
+        var = 135
+        arr = np.ones((3,4,5))
+        arr = gd.FillNdArraysBy(arr,var)
+        self.assertEqual(135,arr[2,2,4])
+    def testFillNdArraysBy135(self):
+        arr = np.ones((3,4,5))
+        arr = gd.FillNdArraysBy135(arr)
+        self.assertEqual(135,arr[2,2,4])
+    def testFillNdArrayElementInStep(self):
+        var = 124
+        arr = np.ones((3,4,5))
+        step = 6
+        arr = gd.FillNdArrayElementInStep(arr,var,step)
+        self.assertEqual(124,arr[1,2,0])
+    def testFillNdArrayElementBy124InStep6(self):
+        arr = np.ones((3,4,5))
+        arr = gd.FillNdArraysElementBy124InStep6(arr)
+        self.assertEqual(124,arr[2,2,4])
+    def testCalcRatio_integers(self):
+        numTotal = 24
+        self.assertEqual((6,4),gd.CalcRatio((3,2),numTotal))
+    def testCalcRatio_fractions(self):
+        numTotal = 26
+        self.assertEqual((6,5),gd.CalcRatio((3,2),numTotal))
         
-class GradientCreate(unittest.TestCase):#
+        
+        
+class GradientCreate():#unittest.TestCase
     def testShapeGradientWithLetter(self):
         gradient = gd.CreateGrayGradient(48,0,False)
         gradientWithLetter = gd.GradientWithLetter(gradient,36,'G',15)
@@ -43,7 +69,7 @@ class GradientCreate(unittest.TestCase):#
         gradient = gd.CreateGrayGradient(200,23)
         gradientC = gd.CreateCircleOn(gradient,0.7)
         self.assertEqual(0,gradientC[80,33])
-class ManyGradientsCreate(unittest.TestCase):#
+class ManyGradientsCreate():#unittest.TestCase
     def testCreateGrayGradient(self):
         angles = [3,78,94,175,192,266,291,349,90]
         gradients = [gd.CreateGrayGradient(200,angle,False) for angle in angles]
@@ -61,7 +87,26 @@ class ManyGradientsCreate(unittest.TestCase):#
         self.assertEqual((10,40,40),gradientsWithCircle.shape)
 
 #~ poniższe okazało się niepotrzebne, bo jest funkcja np.save
-class SaveAndOpenGeneratedGradients(unittest.TestCase):
+class GenerateAndSaveTrainingData(unittest.TestCase):
+    
+    
+    def testGenerateBackground(self):
+        createBackgroundFunc = np.ones((3,4,5))
+        backGrd = gwg.GenerateDataUsingFunctions([createBackgroundFunc])
+        self.assertEqual(1,backGrd[2,2,4])
+    def testGenerateDataUsingCommonFunctions(self):
+        commonFunctions = [np.ones((3,4,5)),gd.FillNdArraysBy135]
+        diffFunctions = [gd.FillNdArraysElementBy124InStep6]
+        basics = gwg.GenerateDataUsingFunctions(commonFunctions)
+        diffs = gwg.ModifyDataUsingFunctions(basics,diffFunctions)
+        self.assertEqual(135,basics[2,2,4])
+        self.assertEqual(124,diffs[1,2,0])
+        
+    def testGenerateFileNames(self):
+        pass
+    def testSave4FilesByGenerateData(self):
+        pass
+        
     """
     def testIsFileGrayGradientsNdArray(self):
         gradients = gwg.CreateGrayGradientsAsNdArray((10,28,28))

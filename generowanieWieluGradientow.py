@@ -1,4 +1,5 @@
 import numpy as np
+import Gradient as gd
 from Gradient import GradientWithLetter,CreateGrayGradient,CreateCircleOn
 import matplotlib.pyplot as plt
     
@@ -91,8 +92,25 @@ def SaveGradientsWithLetters(num,size):
     np.save(nameGray,grayGradients)
     np.save(nameLetter,gradientsWithLetters)
     print('dane zapisane')
-def SaveGradientsCircles(num,size)
-    #~ print('generowanie danych...')
+def GenerateDataUsingFunctions(generatingFunctions):
+    result = generatingFunctions[0]
+    i = 1
+    while i < len(generatingFunctions):
+        result = generatingFunctions[i](result)
+        i += 1
+    return result
+def ModifyDataUsingFunctions(basics,diffFunctions):
+    #~ print(basics)
+    result = np.array(basics)
+    i = 0
+    while i < len(diffFunctions):
+        result = diffFunctions[i](result)
+        i += 1
+    return result
+def SaveGradientsCircles(num_train,num_test,size):
+    start = tm.time()
+    print(start)    
+    print('generowanie danych...')
     #~ grayGradients = CreateGrayGradientsAsNdArray((num,size,size))
     #~ gradientsWithLetters = CreateLettersOnGradients(grayGradients)
     #~ print('dane wygenerowane')
@@ -113,9 +131,23 @@ def showSavedImages(fileName):
         plt.grid(False)
         plt.imshow(images[i],cmap=plt.cm.binary)
     plt.show()
-    
+
+def ShowGeneratedImages(images,numToShow):
+    if len(images) < numToShow: numToShow = len(images)
+    num_im = numToShow
+    num_imx,num_imy = gd.CalcRatio((3,2),num_im)
+    plt.figure(figsize=(20,10))
+    for i in range(num_im):
+        plt.subplot(num_imy,num_imx,i+1)
+        plt.xticks([])
+        plt.yticks([])
+        plt.grid(False)
+        plt.imshow(images[i],cmap=plt.cm.binary)
+    plt.show()
+    return None
 if __name__ == "__main__":
+    pass
     #~ showGeneratedImages(10,9)
     #~ showSavedImages('gradLett10x9.npy')
     #~ SaveExampleImages()
-    SaveGradients(10000,28)
+    #~ SaveGradients(10000,28)
