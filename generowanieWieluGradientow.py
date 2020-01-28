@@ -100,25 +100,13 @@ def GenerateDataUsingFunctions(generatingFunctions):
         i += 1
     return result
 def ModifyDataUsingFunctions(basics,diffFunctions):
-    #~ print(basics)
     result = np.array(basics)
     i = 0
     while i < len(diffFunctions):
         result = diffFunctions[i](result)
         i += 1
     return result
-def SaveGradientsCircles(num_train,num_test,size):
-    start = tm.time()
-    print(start)    
-    print('generowanie danych...')
-    #~ grayGradients = CreateGrayGradientsAsNdArray((num,size,size))
-    #~ gradientsWithLetters = CreateLettersOnGradients(grayGradients)
-    #~ print('dane wygenerowane')
-    #~ nameGray = 'gray_'+str(num)+'_'+str(size)+'x'+str(size)
-    #~ nameLetter = 'letters_'+str(num)+'_'+str(size)+'x'+str(size)
-    #~ np.save(nameGray,grayGradients)
-    #~ np.save(nameLetter,gradientsWithLetters)
-    #~ print('dane zapisane')
+
 def showSavedImages(fileName):
     images = np.load(fileName)
     num_imx,num_imy = 10,9
