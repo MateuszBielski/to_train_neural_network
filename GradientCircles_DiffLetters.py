@@ -5,7 +5,7 @@ import generowanieWieluGradientow as gwg
 
 if __name__ == "__main__":
     #~ DataParameters
-    num_train = 2000
+    num_train = 40
     size = 28
     num_test = None
     numToShow = 20
