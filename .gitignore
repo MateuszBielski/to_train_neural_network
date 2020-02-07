@@ -5,3 +5,4 @@
 *.npy
 .ipynb_checkpoints/
 __pycache__/
+CNN/.ipynb_checkpoints
