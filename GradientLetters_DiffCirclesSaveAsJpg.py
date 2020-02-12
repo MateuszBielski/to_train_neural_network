@@ -5,10 +5,10 @@ import generowanieWieluGradientow as gwg
 
 if __name__ == "__main__":
     #~ DataParameters
-    num_train = 400
+    num_train = 20
     size = 256
     num_test = None
-    numToShow = 10
+    numToShow = 6
     #~ Generate
     start = tm.time()
     print('generowanie danych...')
@@ -17,6 +17,7 @@ if __name__ == "__main__":
     
     train_labels = gwg.GenerateDataUsingFunctions(commonFunctions)
     train_images = gwg.ModifyDataUsingFunctions(train_labels,diffFunctions)
+    merged_images = gd.MergeTwoImagesSetsIntoPairs(train_labels,train_images)
     stop = tm.time()
     print('wygenerowano dane w '+'%.5f'%(stop - start)+'s')
     #~ Save
@@ -27,10 +28,9 @@ if __name__ == "__main__":
     print(nameCommon)
     print(nameDiff)
     
-    np.save(nameCommon,train_labels)
-    np.save(nameDiff,train_images)
+    #~ np.save(nameCommon,train_labels)
+    #~ np.save(nameDiff,train_images)
     stop = tm.time()
     print('zapisano dane w '+'%.5f'%(stop - start)+'s')
     #~ Show
-    gwg.ShowGeneratedImages(train_images,numToShow)
-    gwg.ShowGeneratedImages(train_labels,numToShow)
+    gwg.ShowGeneratedImages(merged_images,numToShow)

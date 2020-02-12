@@ -148,6 +148,10 @@ def CalcRatio(ratio,numTotal):
     #~ x,y = rat_x*c,rat_y*c
     return (x,y)
     
+def MergeTwoImagesSetsIntoPairs(arrL,arrR):
+    if arrL.shape != arrR.shape: return
+    return np.concatenate((arrL,arrR),axis = -1)
+    
 
 if __name__ == "__main__":
     grayGradient = CreateGrayGradient(200,23)

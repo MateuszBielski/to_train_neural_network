@@ -6,3 +6,7 @@
 .ipynb_checkpoints/
 __pycache__/
 CNN/.ipynb_checkpoints
+CNN/logs/
+CNN/pix2pix20epochs/
+CNN/training_checkpoints/
+rysujeLiteryBezKolwzorowaneNaPix2Pix.ipynb

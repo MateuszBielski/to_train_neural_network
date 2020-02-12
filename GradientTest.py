@@ -49,7 +49,11 @@ class SimpleFunctions(unittest.TestCase):#
     def testCalcRatio_fractions(self):
         numTotal = 26
         self.assertEqual((6,5),gd.CalcRatio((3,2),numTotal))
-        
+    def testMergeTwoImagesSetsIntoPairs(self):
+        left = np.full((5,4,4),8)
+        right = np.full((5,4,4),9)
+        result = [8]*4+[9]*4
+        self.assertEqual(result,list(gd.MergeTwoImagesSetsIntoPairs(left,right)[2,3,:]))
         
         
 class GradientCreate():#unittest.TestCase
