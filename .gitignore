@@ -10,3 +10,4 @@ CNN/logs/
 CNN/pix2pix20epochs/
 CNN/training_checkpoints/
 rysujeLiteryBezKolwzorowaneNaPix2Pix.ipynb
+train_drawLetters/

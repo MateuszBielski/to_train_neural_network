@@ -22,14 +22,9 @@ if __name__ == "__main__":
     print('wygenerowano dane w '+'%.5f'%(stop - start)+'s')
     #~ Save
     start = stop
-    nameCommon = 'GradientLetters_'
-    nameDiff = nameCommon+'_DiffCircles_'+str(num_train)+'_'+str(size)+'x'+str(size)
-    nameCommon = nameCommon+str(num_train)+'_'+str(size)+'x'+str(size)
-    print(nameCommon)
-    print(nameDiff)
-    
-    #~ np.save(nameCommon,train_labels)
-    #~ np.save(nameDiff,train_images)
+    nameCommon = 'GradientLetters'
+    nameDiff = 'DiffCircles'
+    gwg.SaveNdArrayAsSeparatedJpgFiles(merged_images,'train_drawLetters/',nameCommon,nameDiff)
     stop = tm.time()
     print('zapisano dane w '+'%.5f'%(stop - start)+'s')
     #~ Show

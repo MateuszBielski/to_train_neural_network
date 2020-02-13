@@ -110,7 +110,41 @@ class GenerateAndSaveTrainingData(unittest.TestCase):
         pass
     def testSave4FilesByGenerateData(self):
         pass
-        
+    def testSaveNdArrayAsJpg(self):
+        arr = np.full((45,45),126)
+        fileName = 'test45x45.jpg'
+        gwg.SaveNdArrayAsJpg(arr,fileName)
+        try:
+            f = open(fileName)
+        except:
+            self.assertTrue(False)
+        else:
+            f.close()
+            os.remove(fileName)
+            self.assertTrue(True)
+    def testSaveNdArrayAsSeparatedJpgFiles(self):
+        arr = np.full((3,45,48),126)
+        fName1 = 'test_dir/nameCommon_nameDiff_00000_45x48.jpg'
+        fName2 = 'test_dir/nameCommon_nameDiff_00001_45x48.jpg'
+        fName3 = 'test_dir/nameCommon_nameDiff_00002_45x48.jpg'
+        gwg.SaveNdArrayAsSeparatedJpgFiles(arr,'test_dir/','nameCommon','nameDiff')
+        try:
+            f1 = open(fName1)
+            f2 = open(fName2)
+            f3 = open(fName3)
+        except:
+            self.assertTrue(False)
+        else:
+            f1.close()
+            f2.close()
+            f3.close()
+            os.remove(fName1)
+            os.remove(fName2)
+            os.remove(fName3)
+            if os.path.exists('test_dir/'):
+                os.rmdir('test_dir/')
+            self.assertTrue(True)
+        #~ self.assertEqual(1,2)
     """
     def testIsFileGrayGradientsNdArray(self):
         gradients = gwg.CreateGrayGradientsAsNdArray((10,28,28))

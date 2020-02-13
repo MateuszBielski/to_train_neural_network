@@ -1,7 +1,9 @@
 import numpy as np
+import os
 import Gradient as gd
 from Gradient import GradientWithLetter,CreateGrayGradient,CreateCircleOn
 import matplotlib.pyplot as plt
+from PIL import Image
     
 num_im = 25
 edgeLenght = 28
@@ -133,7 +135,25 @@ def ShowGeneratedImages(images,numToShow):
         plt.imshow(images[i],cmap=plt.cm.binary)
     plt.show()
     return None
+    
+def SaveNdArrayAsJpg(array,fileName):
+    im = Image.fromarray(array,'L')
+    im.save(fileName)
+    
+def SaveNdArrayAsSeparatedJpgFiles(mergedImages,path,nameCommon,nameDiff):
+    num = 0
+    #GradientLetters__DiffCircles_60000_32x32
+    sizX,sizY = [str(i) for i in mergedImages.shape[1:3]]
+    if not os.path.exists(path):
+        os.mkdir(path)
+    for im in mergedImages:
+        fileName = path+nameCommon+'_'+nameDiff+'_'+'%.05d'%(num)+'_'+sizX+'x'+sizY+'.jpg'
+        #~ print(fileName)
+        num +=1
+        SaveNdArrayAsJpg(im,fileName)
+    
 if __name__ == "__main__":
+    
     pass
     #~ showGeneratedImages(10,9)
     #~ showSavedImages('gradLett10x9.npy')
